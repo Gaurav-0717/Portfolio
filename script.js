@@ -181,13 +181,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================================================
-       CONTACT FORM
-    ========================================================= */
+   CONTACT FORM — GMAIL COMPOSE
+========================================================= */
 
   const contactForm = document.getElementById("contactForm");
-
   const feedback = document.getElementById("formFeedback");
-
   const submitButton = document.getElementById("formSubmitBtn");
 
   if (contactForm && feedback && submitButton) {
@@ -195,20 +193,16 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
 
       const name = document.getElementById("userName").value.trim();
-
       const email = document.getElementById("userEmail").value.trim();
-
       const subject = document.getElementById("userSubject").value.trim();
-
       const message = document.getElementById("userMessage").value.trim();
 
       /* ---------------------------------------------
-                   VALIDATION
-                --------------------------------------------- */
+           VALIDATION
+        --------------------------------------------- */
 
       if (!name) {
         showFeedback("Please enter your name.", "error");
-
         return;
       }
 
@@ -216,54 +210,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!email || !emailPattern.test(email)) {
         showFeedback("Please enter a valid email address.", "error");
-
         return;
       }
 
       if (!subject) {
         showFeedback("Please enter a subject.", "error");
-
         return;
       }
 
       if (!message) {
         showFeedback("Please enter your message.", "error");
-
         return;
       }
 
       /* ---------------------------------------------
-                   BUILD EMAIL
-                --------------------------------------------- */
+           BUILD EMAIL BODY
+        --------------------------------------------- */
 
       const emailBody = `Hi Gaurav,
 
 Name: ${name}
+
 Email: ${email}
 
 Message:
 
 ${message}
 
----
 Sent from Gaurav's Portfolio`;
 
-      const mailtoUrl =
-        `mailto:gauravshingare14@gmail.com` +
-        `?subject=${encodeURIComponent(subject)}` +
-        `&body=${encodeURIComponent(emailBody)}`;
+      /* ---------------------------------------------
+           BUILD GMAIL COMPOSE URL
+        --------------------------------------------- */
+
+      const gmailUrl =
+        "https://mail.google.com/mail/?view=cm&fs=1" +
+        "&to=" +
+        encodeURIComponent("gauravshingare14@gmail.com") +
+        "&su=" +
+        encodeURIComponent(subject) +
+        "&body=" +
+        encodeURIComponent(emailBody);
+
+      /* ---------------------------------------------
+           OPEN GMAIL DIRECTLY
+        --------------------------------------------- */
 
       submitButton.disabled = true;
 
-      showFeedback("Opening your email client...", "success");
+      showFeedback("Opening Gmail Compose...", "success");
 
-      setTimeout(() => {
-        window.location.href = mailtoUrl;
-
-        setTimeout(() => {
-          submitButton.disabled = false;
-        }, 1500);
-      }, 300);
+      /*
+       * Use direct navigation instead of window.open().
+       * This avoids browser popup blocking.
+       */
+      window.location.href = gmailUrl;
     });
 
     function showFeedback(message, type) {
