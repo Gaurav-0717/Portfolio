@@ -4,7 +4,7 @@ A modern and responsive personal portfolio website showcasing my skills, project
 
 ## 🌐 Live Portfolio
 
-[Visit My Portfolio](https://portfolio-eta-three-74.vercel.app/)
+[Visit My Portfolio](https://gaurav-portfolio-steel-nine.vercel.app/)
 
 > Replace the URL above with your final Vercel URL if it is different.
 
